@@ -1,4 +1,5 @@
 import {useState} from "react";
+import axios from "axios";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
 
@@ -22,11 +23,12 @@ function App() {
         setBooks(updatedBooks);
     };
 
-    const createBook = (title) => {
-        const updatedBooks = [...books, {
-            id:Math.round(Math.random() * 9999),
-            title:title
-        }];
+    const createBook = async (title) => {
+        const response = await axios.post('http://localhost:3001/books',  {
+           title,
+        });
+
+        const updatedBooks = [...books, response.data];
         setBooks(updatedBooks);
     };
 
@@ -46,4 +48,16 @@ esta aplicación tiene 3 pasos
 1) lista de libros locales no persistentes
 2) Persistir los libros usando una Api Externa
 3) api externa + estado centralizado
+
+en esta rama (refactor):
+1) Crearé una API y entenderé cómo funciona
+2) Cada vez que nuestra app se inicie, me aseguraré de hacer una solicitud inicial para obtener la lista actual de los libros
+3) Voy a volver a mis tres funciones de este archivo (crear, editar y eliminar) y las actualizaré con la info de la api.
+
+primeros pasos: Json Server Setup
+1) instalar JSON-Server con npm en la terminal
+2) crear un archivo "ds.json". En este archivo se guardará la data.
+3) Crear un comando para correr JSON-Server
+4) Correr el comando
+
 */
