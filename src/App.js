@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import axios from "axios";
 import BookCreate from "./components/BookCreate";
 import BookList from "./components/BookList";
@@ -6,17 +6,33 @@ import BookList from "./components/BookList";
 function App() {
     const [books, setBooks] = useState([]);
 
-    const editBookById = (id, newTitle) => {
+    const fetchBooks = async () => {
+        const response = await axios.get('http://localhost:3001/books');
+        setBooks(response.data);
+    };
+
+    useEffect(() => {
+        fetchBooks();
+    }, []);
+
+
+    const editBookById = async (id, newTitle) => {
+        const response = await axios.put(`http://localhost:3001/books/${id}`, {
+            title: newTitle
+        });
+
         const updatedBooks = books.map((book) => {
             if (book.id === id) {
-                return {...book, title: newTitle};
+                return {...book, ...response.data};
             }
             return book;
         });
         setBooks(updatedBooks);
     };
 
-    const deleteBookById = (id) => {
+    const deleteBookById = async (id) => {
+        await axios.delete(`http://localhost:3001/books/${id}`);
+
         const updatedBooks = books.filter((book) => {
             return book.id !== id;
         });
@@ -60,4 +76,15 @@ primeros pasos: Json Server Setup
 3) Crear un comando para correr JSON-Server
 4) Correr el comando
 
+UseEffect
+1) Entender que pasa cuando se usa useEffect
+    1.1) si usamos useEffect siempre se va a renderizar apenas iniciamos la app
+    1.2) luego, esta funciòn puede o no ejecutarse dependiendo de lo que pasemos en el segundo argumento, en este caso es el array.
+    1.3) el segundo argumento puede ser un array vacìo, un array con algo o simplemente nada.
+    1.3.1) si pasamos el array vacio: la funciòn flecha se ejecuta la primera vez y no se vuelve a ejecutar.
+    1.3.2) Si no pasamos segundo argumento: la funcion flecha se ejecutarà siempre
+    1.3.3) Si pasamos un array con algo en el array: la funcion flecha se ejecuta la primera vez y se vuelve a ejecutar si algo de lo que està adentro del array cambia.
+
+2) 
+3)
 */
