@@ -49,4 +49,10 @@ UseEffect
 
 2) 
 3)
+
+Hooks
+son funciones que añaden características adicionales a un componente. Generalmente comienzan con la palabra "use"
+useState: permite a un componente usar el stateSystem
+useEffect: permite a un componente correr código en puntos de tiempo específicos
+useContext: permite acceder a los valores de un componente almacenados en el contexto
 */
