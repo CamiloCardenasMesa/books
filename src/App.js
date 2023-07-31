@@ -46,9 +46,7 @@ UseEffect
     1.3.1) si pasamos el array vacio: la funciòn flecha se ejecuta la primera vez y no se vuelve a ejecutar.
     1.3.2) Si no pasamos segundo argumento: la funcion flecha se ejecutarà siempre
     1.3.3) Si pasamos un array con algo en el array: la funcion flecha se ejecuta la primera vez y se vuelve a ejecutar si algo de lo que està adentro del array cambia.
-
-2) 
-3)
+    1.4) Lo único que puede retornar la función useEffect es otra función. No números, strings ni async/await.
 
 Hooks
 son funciones que añaden características adicionales a un componente. Generalmente comienzan con la palabra "use"
